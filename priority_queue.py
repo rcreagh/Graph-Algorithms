@@ -15,11 +15,29 @@ class PriorityQueue:
             for task, priority in tasks_prios:
                 self.add_task(task, priority)
 
+    def parent(self, i):
+        return (i - 1) // 2 # Integer division
+
+    def left_child(self, i):
+        return 2*i + 1
+
+    def right_child(self, i):
+        return 2*i + 2
+
+    def sift_up(self, i):
+        if i == 0:
+            return 0
+        #TODO - restart from here: priority = self.pq[i][0]
+        if 
+
     def add_task(self, task, priority=0):
         if task in self.entry_finder:
             del self.entry_finder[task]
         count = next(self.counter)
         entry = [priority, count, task]
         self.entry_finder[task] = entry
-        #TODO: Add heapify here
+        heap(self.pq, entry)
+
+    def heap(self, queue, queue_entry):
+
 
