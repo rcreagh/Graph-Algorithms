@@ -27,8 +27,11 @@ class PriorityQueue:
     def sift_up(self, i):
         if i == 0:
             return 0
-        #TODO - restart from here: priority = self.pq[i][0]
-        if 
+        priority_of_i = self.pq[i][0]
+        priority_of_parent_of_i = self.pq[parent(i)][0]
+
+        while priority_of_i < priority_of_parent_of_i:
+            pass
 
     def add_task(self, task, priority=0):
         if task in self.entry_finder:
