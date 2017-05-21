@@ -70,7 +70,10 @@ class PriorityQueue:
         count = next(self.counter)
         entry = [priority, count, task]
         self.entry_finder[task] = entry
-        heap(self.pq, entry)
+        add(self.pq, entry)
 
+    def add(self, queue, task):
+        self.pq.append(task)
+        siftup(self.pq, len(self.pq) - 1)
 
 
