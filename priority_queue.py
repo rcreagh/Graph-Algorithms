@@ -1,6 +1,8 @@
 #! /usr/bin/python
 """This script is to create a class Priority Queue from scratch without the use
-of Python's heapq library. """
+of Python's heapq library. 
+
+NOTE: This is WIP."""
 
 import itertools
 
