@@ -17,7 +17,7 @@ class PriorityQueue:
             for task, priority in tasks_prios:
                 self.add_task(task, priority)
 
-    def swap(i, j):
+    def swap(self, i, j):
         self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
 
     def parent(self, i):
