@@ -25,13 +25,42 @@ class PriorityQueue:
         return 2*i + 2
 
     def sift_up(self, i):
-        if i == 0:
-            return 0
+        parent = parent(i)
         priority_of_i = self.pq[i][0]
-        priority_of_parent_of_i = self.pq[parent(i)][0]
+        priority_of_parent_of_i = self.pq[parent][0]
 
+        if parent < 0:
+            return
         while priority_of_i < priority_of_parent_of_i:
-            pass
+            swap(i, parent(i))
+            i = parent
+            parent = parent(i)
+            if parent < 0:
+                return
+
+    def sift_down(self, queue, i):
+        while True:
+            left_child = left_child(queue, i)
+            right_child = right_child(queue, i)
+
+            priority_of_i = self.pq[i][0]
+            priority_of_left_child = self.pq[left_child][0]
+            priority_of_right_child = self.pq[right_child][0]
+
+            if (rigt_child < len(queue) and
+                    priority_of_right_child < priority_of_left_child):
+                child = right_child
+                priority_of_child = priority_of_right_child
+            else:
+                child = left_child
+                priority_of_child = priority_of_left_child
+
+            if (child < len(queue) and
+                    priority_of_child < priority_of_i):
+                swap(queue, i, child)
+                i = child
+            else:
+                return
 
     def add_task(self, task, priority=0):
         if task in self.entry_finder:
@@ -41,6 +70,5 @@ class PriorityQueue:
         self.entry_finder[task] = entry
         heap(self.pq, entry)
 
-    def heap(self, queue, queue_entry):
 
 
