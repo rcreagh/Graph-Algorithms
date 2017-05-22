@@ -50,12 +50,18 @@ class PriorityQueue:
         while True:
             left_child = self.left_child(i)
             right_child = self.right_child(i)
-
+            
             priority_of_i = self.pq[i][1]
-            priority_of_left_child = self.pq[left_child][1]
-            priority_of_right_child = self.pq[right_child][1]
+            try:
+                priority_of_left_child = self.pq[left_child][1]
+            except:
+                return
+            try:
+                priority_of_right_child = self.pq[right_child][1]
+            except:
+                priority_of_right_child = float('inf')
 
-            if (rigt_child < len(self.pq) and
+            if (right_child < len(self.pq) and
                     priority_of_right_child < priority_of_left_child):
                 child = right_child
                 priority_of_child = priority_of_right_child
