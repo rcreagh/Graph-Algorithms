@@ -12,11 +12,13 @@ class PriorityQueue:
     def __init__(self, tasks_prios = None):
         self.pq = []
         self.entry_finder = {}
-        self.counter = itertools.count()
         if tasks_prios:
             for task, priority in tasks_prios:
                 self.add_task(task, priority)
 
+    def __str__(self):
+        return str(self.pq)
+    
     def swap(self, i, j):
         self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
 
@@ -30,27 +32,28 @@ class PriorityQueue:
         return 2*i + 2
 
     def sift_up(self, i):
-        parent = parent(i)
-        priority_of_i = self.pq[i][0]
-        priority_of_parent_of_i = self.pq[parent][0]
+        parent = self.parent(i)
+        priority_of_i = self.pq[i][1]
+        priority_of_parent_of_i = self.pq[parent][1]
 
         if parent < 0:
             return
         while priority_of_i < priority_of_parent_of_i:
-            swap(i, parent(i))
+            self.swap(i, self.parent(i))
             i = parent
-            parent = parent(i)
+            parent = self.parent(i)
+            priority_of_parent_of_i = self.pq[parent][1]
             if parent < 0:
                 return
 
     def sift_down(self, i):
         while True:
-            left_child = left_child(self.pq, i)
-            right_child = right_child(self.pq, i)
+            left_child = self.left_child(i)
+            right_child = self.right_child(i)
 
-            priority_of_i = self.pq[i][0]
-            priority_of_left_child = self.pq[left_child][0]
-            priority_of_right_child = self.pq[right_child][0]
+            priority_of_i = self.pq[i][1]
+            priority_of_left_child = self.pq[left_child][1]
+            priority_of_right_child = self.pq[right_child][1]
 
             if (rigt_child < len(self.pq) and
                     priority_of_right_child < priority_of_left_child):
@@ -62,26 +65,25 @@ class PriorityQueue:
 
             if (child < len(self.pq) and
                     priority_of_child < priority_of_i):
-                swap(i, child)
+                self.swap(i, child)
                 i = child
             else:
                 return
 
-    def add_task(self, task, priority=0):
+    def add(self, entry):
+        self.pq.append(entry)
+        self.sift_up(len(self.pq) - 1)
+
+    def add_task(self, task, priority):
         if task in self.entry_finder:
             del self.entry_finder[task]
-        count = next(self.counter)
-        entry = [priority, count, task]
+        entry = [task, priority]
         self.entry_finder[task] = entry
-        add(self.pq, entry)
-
-    def add(self, task):
-        self.pq.append(task)
-        siftup(self.pq, len(self.pq) - 1)
+        self.add(entry)
 
     def pop(self):
         min_priority = self.pq[0]
         self.pq[0] = self.pq[-1]
         del self.pq[-1]
-        siftdown(0)
+        self.sift_down(0)
         return min_priority
