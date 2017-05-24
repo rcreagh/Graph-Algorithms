@@ -7,4 +7,13 @@ import priority_queue
 import unittest
 
 class PriorityQueueTest(unittest.TestCase):
-    pass
+    
+    def testPriorityQueue_DuplicateTask(self):
+        queue = ([
+            [0, 3],
+            [1, 5],
+            [2, 1],
+            [1, 2]])
+
+        self.assertRaises(priority_queue.PriorityQueueDuplicateTaskException,
+                priority_queue.PriorityQueue(queue))
