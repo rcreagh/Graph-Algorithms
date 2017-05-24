@@ -2,9 +2,22 @@
 """This script is to create a class Priority Queue from scratch without the use
 of Python's heapq library. 
 
-NOTE: This is WIP."""
+NOTE: Thiis is WIP, is NOT fully tested and may contain bugs."""
 
 import itertools
+
+class PriorityQueueDuplicateTaskException(Exception):
+    """An exception for when the same task is entered the queue more than
+    once."""
+    pass
+
+class DataTypeException(Exception):
+    """An exception for when the priority of a node is entered as a string."""
+    pass
+
+class EmptyPriorityQueueException(Exception):
+    """An exception for when 'pop' is called on an empty queue."""
+    pass
 
 class PriorityQueue:
     """Priority queue implementation."""
@@ -50,7 +63,6 @@ class PriorityQueue:
         while True:
             left_child = self.left_child(i)
             right_child = self.right_child(i)
-            
             priority_of_i = self.pq[i][1]
             try:
                 priority_of_left_child = self.pq[left_child][1]
@@ -76,18 +88,25 @@ class PriorityQueue:
             else:
                 return
 
+    def add_task(self, task, priority):
+        if isinstance(priority, str):
+            raise DataTypeException(
+                    "Priority must be a number - string entered.")
+        if task in self.entry_finder:
+            raise PriorityQueueDuplicateTaskException(
+                    "Duplicate task entered into priority queue.")
+        entry = [task, priority]
+        self.entry_finder[task] = entry
+        self.add(entry)
+ 
     def add(self, entry):
         self.pq.append(entry)
         self.sift_up(len(self.pq) - 1)
 
-    def add_task(self, task, priority):
-        if task in self.entry_finder:
-            del self.entry_finder[task]
-        entry = [task, priority]
-        self.entry_finder[task] = entry
-        self.add(entry)
-
     def pop(self):
+        if not self.pq:
+            raise EmptyPriorityQueueException(
+                    "Attempted to pop task from an empty queue.")
         min_priority = self.pq[0]
         self.pq[0] = self.pq[-1]
         del self.pq[-1]
