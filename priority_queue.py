@@ -1,8 +1,8 @@
 #! /usr/bin/python
 """This script is to create a class Priority Queue from scratch without the use
-of Python's heapq library. 
-
-NOTE: Thiis is WIP, is NOT fully tested and may contain bugs."""
+of Python's heapq library. This is for learning purposes, to demonstrate how a
+Priority Queue is built from scratch. Of course, in practice, we would just use
+the heapq library."""
 
 import itertools
 
@@ -36,15 +36,20 @@ class PriorityQueue:
         self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
 
     def parent(self, i):
-        return (i - 1) // 2 # Integer division
+        """Defines Parent node of a given node in the heap structure."""
+        return (i - 1) // 2
 
     def left_child(self, i):
+        """Defines the left child of a given node in the heap structure."""
         return 2*i + 1
 
     def right_child(self, i):
+        """Defines the right child of a given node in the heap structure."""
         return 2*i + 2
 
     def sift_up(self, i):
+        """Compares a node with its parent in the heap structure. Swaps if its
+        priority is lower than that of its parent and repeats."""
         parent = self.parent(i)
         priority_of_i = self.pq[i][1]
         priority_of_parent_of_i = self.pq[parent][1]
@@ -60,6 +65,10 @@ class PriorityQueue:
                 return
 
     def sift_down(self, i):
+        """Compares a node with its children in the heap structure. Swaps if
+        its priority is higher than that of either of its children. If its
+        priority is higher than that of both of its children, swaps with the
+        child with lower priority."""
         while True:
             left_child = self.left_child(i)
             right_child = self.right_child(i)
@@ -89,6 +98,7 @@ class PriorityQueue:
                 return
 
     def add_task(self, task, priority):
+        """Adds a task to existing priority queue."""
         if isinstance(priority, str):
             raise DataTypeException(
                     "Priority must be a number - string entered.")
@@ -97,13 +107,11 @@ class PriorityQueue:
                     "Duplicate task entered into priority queue.")
         entry = [task, priority]
         self.entry_finder[task] = entry
-        self.add(entry)
- 
-    def add(self, entry):
         self.pq.append(entry)
         self.sift_up(len(self.pq) - 1)
 
     def pop(self):
+        """Pops task with lower priority off the heap."""
         if not self.pq:
             raise EmptyPriorityQueueException(
                     "Attempted to pop task from an empty queue.")

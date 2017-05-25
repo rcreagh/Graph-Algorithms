@@ -33,7 +33,6 @@ class PriorityQueueTest(unittest.TestCase):
             [5, 7],
             [6, 1],
             [7, 5]])
-
         expected = [
             [6, 1],
             [1, 3],
@@ -56,7 +55,6 @@ class PriorityQueueTest(unittest.TestCase):
             [5, 7],
             [6, 1],
             [7, 5]])
-
         expected_task = [6, 1]
         expected_remaining_queue = [
             [4, 2],
@@ -66,7 +64,29 @@ class PriorityQueueTest(unittest.TestCase):
             [0, 5],
             [2, 8],
             [5, 7]]
-
         task = queue.pop()
+        
         self.assertEqual(expected_task, task)
         self.assertEqual(expected_remaining_queue, queue.pq)
+
+    def testPriorityQueue_AddingTasks(self):
+        queue = priority_queue.PriorityQueue()
+        queue.add_task("Task 1", 5)
+        queue.add_task("Task 2", 3)
+        queue.add_task("Task 3", 8)
+        queue.add_task("Task 4", 6)
+        queue.add_task("Task 5", 2)
+        queue.add_task("Task 6", 7)
+        queue.add_task("Task 7", 1)
+        queue.add_task("Task 8", 5)
+        expected = [
+            ["Task 7", 1],
+            ["Task 2", 3],
+            ["Task 5", 2],
+            ["Task 8", 5],
+            ["Task 1", 5],
+            ["Task 3", 8],
+            ["Task 6", 7],
+            ["Task 4", 6]]
+
+        self.assertEqual(expected, queue.pq)
