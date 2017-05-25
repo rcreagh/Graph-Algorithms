@@ -1,7 +1,5 @@
 #! usr/bin/python
-"""Unit tests associated with priority_queue.py
-
-NOTE: This is WIP."""
+"""Unit tests associated with priority_queue.py"""
 
 import priority_queue
 import unittest
