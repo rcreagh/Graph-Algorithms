@@ -29,19 +29,18 @@ def breadth_first_search(graph, node):
     """
     #TODO: Return exception if graph is not connected, is weighted or directed.
     sub_graph = []
-    queue = []
+    queue = set()
     height = 0
     root_node = Vertex(node, None, height)
     sub_graph.append(root_node)
-    queue.append(root_node)
-    while len(queue) > 0:
+    queue.add(root_node.name)
+    while queue:
         height += 1
-        current_node = queue[0]
-        del current_node
-        for neighbor in graph.neighbors(current_node.name):
+        current_node = queue.pop()
+        for neighbor in graph.neighbors(current_node):
             if neighbor not in [i.name for i in sub_graph]:
                 #TODO: Make more efficient way to search sub_graph.
                 neighboring_node = Vertex(neighbor, current_node, height)
-                queue.append(neighboring_node)
+                queue.add(neighboring_node.name)
                 sub_graph.append(neighboring_node)
     return sub_graph
