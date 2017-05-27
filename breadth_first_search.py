@@ -1,7 +1,7 @@
 #! usr/bin/python
 """This script uses breadth first search to find the shortest path from a 
-specified root node to every other node in a connected, undirected, unweighted 
-graph. Uses python's Networkx graphs.
+specified root node to every other node in a component of a weighted graph.
+Uses Python's Networkx graphs.
 
 NOTE: This is WIP."""
 
@@ -21,13 +21,14 @@ def breadth_first_search(graph, node):
     """ Traverse a graph breadth first.
 
     Args:
-        graph: Networkx graph. Must be unweighted, undirected and connected.
+        graph: Networkx graph. Must be unweighted.
         node: Root node we will traverse the graph from.
     Returns:
         Subgraph of graph that contains the shortest path from the root_node
-        to every other node.
+        to every other node, the parent node for each node in the tree and the
+        height of each node in the tree.
     """
-    #TODO: Return exception if graph is not connected, is weighted or directed.
+    #TODO: Return exception if graph is weighted.
     sub_graph = []
     queue = set()
     height = 0
@@ -39,7 +40,6 @@ def breadth_first_search(graph, node):
         current_node = queue.pop()
         for neighbor in graph.neighbors(current_node):
             if neighbor not in [i.name for i in sub_graph]:
-                #TODO: Make more efficient way to search sub_graph.
                 neighboring_node = Vertex(neighbor, current_node, height)
                 queue.add(neighboring_node.name)
                 sub_graph.append(neighboring_node)
