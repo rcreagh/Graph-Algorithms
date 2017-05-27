@@ -27,7 +27,7 @@ def breadth_first_search(graph, node):
         Subgraph of graph that contains the shortest path from the root_node
         to every other node.
     """
-
+    #TODO: Return exception if graph is not connected, is weighted or directed.
     sub_graph = []
     queue = []
     height = 0
@@ -40,5 +40,8 @@ def breadth_first_search(graph, node):
         del current_node
         for neighbor in graph.neighbors(current_node.name):
             if neighbor not in [i.name for i in sub_graph]:
+                #TODO: Make more efficient way to search sub_graph.
                 neighboring_node = Vertex(neighbor, current_node, height)
-                queuue.append(
+                queue.append(neighboring_node)
+                sub_graph.append(neighboring_node)
+    return sub_graph
