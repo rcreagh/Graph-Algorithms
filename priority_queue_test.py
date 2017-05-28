@@ -88,3 +88,6 @@ class PriorityQueueTest(unittest.TestCase):
             ["Task 4", 6]]
 
         self.assertEqual(expected, queue.pq)
+
+if __name__ == '__main__':
+    unittest.main()
