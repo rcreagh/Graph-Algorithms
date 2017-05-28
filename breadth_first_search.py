@@ -1,7 +1,8 @@
 #! usr/bin/python
 """This script uses breadth first search to find the shortest path from a 
 specified root node to every other node in a component of an unweighted graph.
-Uses Python's Networkx graphs. Can be used to find the component of a node."""
+Uses Python's Networkx graphs. If a graph is weighted, simply returns the
+component of the root node."""
 
 import networkx
 
