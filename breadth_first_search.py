@@ -25,20 +25,19 @@ def breadth_first_search(graph, node):
     Returns:
         Subgraph of graph that contains the shortest path from the root_node
         to every other node, the parent node for each node in the tree and the
-        height of each node in the tree.
+        height of each node in the tree (ie. the distance from the root node).
     """
     sub_graph = []
     queue = set()
-    height = 0
-    root_node = Vertex(node, None, height)
+    root_node = Vertex(node, None, 0)
     sub_graph.append(root_node)
-    queue.add(root_node.name)
+    queue.add(root_node)
     while queue:
-        height += 1
         current_node = queue.pop()
-        for neighbor in graph.neighbors(current_node):
+        for neighbor in graph.neighbors(current_node.name):
             if neighbor not in [i.name for i in sub_graph]:
-                neighboring_node = Vertex(neighbor, current_node, height)
-                queue.add(neighboring_node.name)
+                neighboring_node = Vertex(
+                        neighbor, current_node.name, current_node.height + 1)
+                queue.add(neighboring_node)
                 sub_graph.append(neighboring_node)
-    return sub_graph
+    return (sub_graph)
