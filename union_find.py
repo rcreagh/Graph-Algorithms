@@ -9,8 +9,8 @@ import networkx
 
 class UnionFind:
     def __init__(self):
-        self.roots = {}
-        self.component_size = {}
+        self.roots = {} # Stores root nodes of the component of each seen node.
+        self.component_size = {} # Count of number of nodes in a component.
 
     def find(self, node):
         """Finds the root node of the component containing the specified node.
