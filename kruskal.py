@@ -17,6 +17,7 @@ def kruskal(graph):
     Returns:
         List of weighted edges making up the minimal spanning tree of the graph.
     """
+    #TODO: Raise exception if data type is not networkx graph.
     #TODO: Add exception if graph is not connected.
     if not networkx.is_connected(graph):
         raise pass
