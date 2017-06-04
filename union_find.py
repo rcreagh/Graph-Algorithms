@@ -1,9 +1,7 @@
 #! usr/bin/python
 """This script is a Python implementation of union-find, which is an efficient
 way to determine if two nodes are in the same connected component. This is
-created for use with Python's Networkx graph library.
-
-NOTE: This is WIP and has not been tested yet."""
+created for use with Python's Networkx graph library"""
 
 import networkx
 
