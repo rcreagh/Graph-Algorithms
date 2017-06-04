@@ -1,4 +1,4 @@
-#! usr/bin/python
+#! /usr/bin/python
 """This script uses breadth first search to find the shortest path from a 
 specified root node to every other node in a component of an unweighted graph.
 Uses Python's Networkx graphs. If a graph is weighted, simply returns the

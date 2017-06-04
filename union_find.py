@@ -39,6 +39,8 @@ class UnionFind:
                 while path_to_root[-1] != parent:
                     path_to_root.append(parent)
                     parent = self.roots[parent]
+                for n in path_to_root:
+                    self.roots[n] = parent
         return parent
 
     def union(self, x, y):
