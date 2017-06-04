@@ -7,12 +7,33 @@ library.
 NOTE: This is WIP."""
 
 import networkx
+import union_find
 
 def kruskal(graph):
+    """Find the minimal spanning tree of a weighted, connected graph.
+    
+    Args:
+        graph: Weighted graph in edge list representation.
+    Returns:
+        List of weighted edges making up the minimal spanning tree of the graph.
+    """
+    #TODO: Add exception if graph is not connected.
+    if not networkx.is_connected(graph):
+        raise pass
     minimal_spanning_tree = []
-    edges = sorted(list(graph.edges()))
+    edges = graph.edges(data=True)
+    #TODO: Add exception if unweighted graph passed in.
+    try:
+        sorted_edges = sorted(edges, key=lambda x: x[2])
+    except:
+        pass
     total_nodes = graph.size()
     current_tree_size = 0
-    for i in edges:
-        #TODO: Implement union find and complete this.
-        pass
+    ufs = union_find.UnionFind()
+    for i, j, w in sorted_edges:
+        if ufs.find(i) != ufs.find(j):
+            minimal_spanning_tree.append([(i, j, w)])
+            ufs.union(i, j)
+            current_tree_size += 1
+            if current_tree_size == total_nodes - 1:
+                return minimal_spanning_tree
